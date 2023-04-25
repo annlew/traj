@@ -15,19 +15,21 @@
 # time references
 # -------------------------------------------------------
 forecastdate=$1
-startdate=$2
+startdate=`newtime ${forecastdate} 48` #start 48 hours into the forecast
+
+#startdate=$2
 dur_h=-48
 
 #get the end date
 enddate=`newtime ${startdate} ${dur_h}`
-echo ${enddate}
+echo ${startdate} ${enddate}
 
 # -------------------------------------------------------
 # Trajectory calculations
 # -------------------------------------------------------
 # create startfiles
-lon=$3
-lat=$4
+lon=$2
+lat=$3
 #Radius of circle:180km, distance between startpoint within the circle: 50km
 STARTFILE=startf_ARTofMELT_forecast_${forecastdate}_fromOden
 
