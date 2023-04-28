@@ -156,7 +156,9 @@ if [ ! -e $datadir_cdf ]; then mkdir -p $datadir_cdf; fi
 echo ${traj_home}
 cd ${datadir_cdf}
 ln -s ${traj_home}/runOden_48h.sh runOden_48h.sh
+ln -s ${traj_home}/runOden_96h.sh runOden_96h.sh
 ln -s ${traj_home}/plot_Oden_48h_forecastTrajs_ARTofMELT.py plot_Oden_48h_forecastTrajs_ARTofMELT.py
+ln -s ${traj_home}/plot_Oden_96h_forecastTrajs_ARTofMELT.py plot_Oden_96h_forecastTrajs_ARTofMELT.py
 ln -s ${traj_home}/tracevars tracevars
 #ln -s ${traj_home}/Odenloc.txt Odenloc.txt
 
@@ -230,12 +232,14 @@ echo $lon
 echo $lat
 
 ${datadir_cdf}/runOden_48h.sh $BT $lon $lat
+${datadir_cdf}/runOden_96h.sh $BT $lon $lat
 python3 ${datadir_cdf}/plot_Oden_48h_forecastTrajs_ARTofMELT.py ${MSJ_YEAR} ${MSJ_MONTH} ${MSJ_DAY}
+python3 ${datadir_cdf}/plot_Oden_96h_forecastTrajs_ARTofMELT.py ${MSJ_YEAR} ${MSJ_MONTH} ${MSJ_DAY}
 
 if [ ! -e plots ]; then mkdir -p plots; fi
 mv PLOT* plots
 
-rclone copy ${datadir_cdf}/plots box:artofmelt/trajectory/$BT
+rclone copy ${datadir_cdf}/plots box:artofmelt/${MSJ_YEAR}${MSJ_MONTH}${MSJ_DAY}/trajectory
 
 
 echo '###############################################################' 

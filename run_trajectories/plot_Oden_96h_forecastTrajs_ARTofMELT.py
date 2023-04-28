@@ -30,7 +30,7 @@ from pathlib import Path
 
 # Required for running this plot script are:
 # access to trajectory file(s) and the Odenloc.txt file with the current location of Oden
-# Input traj file: traj_ARTofMELT_forecast_YYYYmmdd_hh_fromOden_48h_2dbw
+# Input traj file: traj_ARTofMELT_forecast_YYYYmmdd_hh_fromOden_96h_4dbw
 # Arguments: Year month day (of forecast initialization)
 
 #define python funtions
@@ -43,7 +43,7 @@ def getonetraj_multipleP(nSteps,nTrajs,df,plevs=None):
     Assign plevs as a list of pressure levels if you want to have a dictionary of Trajs[plev] or Trajs[trajindex]
     Trajs[trajindex] - each trajectory as one part of the dictionary, max(trajindex) = nTrajs - 1
     plevs can also be given as hPa AGL, such as [50,100,150,200,250,300]
-    nSteps = amount of steps (1-hourly) in one trajectory, i.e. if 2days trajs, then we have nSteps=2*24 = 48
+    nSteps = amount of steps (1-hourly) in one trajectory, i.e. if 4days trajs, then we have nSteps=4*24 = 96
     nTrajs = amount of trajectories calculated for a block area (over all pressure levels if you have P-levels)
     df = dataframe with all trajectory information (read in from a text file - LAGRANTO output)
     '''
@@ -352,7 +352,7 @@ if __name__ == "__main__":
     plt.rcParams['figure.facecolor']='white'
 
     #define the folder accordingly
-    TrajFile='traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
+    TrajFile='traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     
     # get the trajectories (in dataframe)
     #read the selected textfile with Traj info
@@ -365,12 +365,12 @@ if __name__ == "__main__":
     nTrajs=len(df_traj)/(nSteps_h+1) #amount of trajectories in the whole file (including all from different levels)
 
     #CHECK that the durations are correct
-    if -48 !=Dur_h:
-        raise ValueError('ERROR! %s does not equal file traj duration %s [h]'%(str(-48),
+    if -96 !=Dur_h:
+        raise ValueError('ERROR! %s does not equal file traj duration %s [h]'%(str(-96),
                                                                            str(Dur_h)))
     #dictionary for each trajectory, keys = initial pressure levels
     Trajs_Plevs=getonetraj_multipleP(nSteps_h,nTrajs,df_traj,plevs=hPa_AGL)
-    
+
     #compute virtual potential temperature
     Trajs_Plevs=compute_VirtualTH(Trajs_Plevs)
     
@@ -378,62 +378,11 @@ if __name__ == "__main__":
     gd = Geodesic()
     props_loc=dict(facecolor='white', alpha=0.85, edgecolor='k')
     props=dict(facecolor='white', alpha=0.85, edgecolor='none')
-    
     #new colormap
     colMap_T=truncate_colormap('RdYlBu_r',minval=0.01,maxval=0.99,n=256)
     
     ########################### PLOT trajectories ####################
     
-    
-    ########### plot starting locations #############
-    
-    # get starting positions
-    Xo= [Trajs_Plevs[50][i].iloc[0]['lon'] for i in getList(Trajs_Plevs[50])] #lon
-    Yo= [Trajs_Plevs[50][i].iloc[0]['lat'] for i in getList(Trajs_Plevs[50])] #lat
-    
-    proj_mod = ccrs.NorthPolarStereo(central_longitude=35)
-    fig, ax = plt.subplots(ncols=1, nrows=1,figsize=(10,10),facecolor='white',
-                         constrained_layout=True,subplot_kw={'projection':proj_mod})
-    ax.set_extent([-60, 60, 80, 90], crs=ccrs.PlateCarree())
-    ax.coastlines(zorder=2,linewidth=0.9,color='k',alpha=1.)
-    gl = ax.gridlines(linewidth=1, color='k', alpha=0.3,zorder=2.)
-    gl.ylocator = mticker.FixedLocator(np.arange(80,91.,1))
-    gl.xlocator = mticker.FixedLocator(np.arange(-60,80,20))
-    gl.xformatter = LONGITUDE_FORMATTER
-    gl.yformatter = LATITUDE_FORMATTER
-    gl.n_steps = 90
-    # Make a boundary path in PlateCarree projection, I choose to start in
-    # the bottom left and go round anticlockwise, creating a boundary point
-    # every 1 degree so that the result is smooth:
-    vertices = [(lon, 80) for lon in range(-60, 61, 1)] + \
-               [(lon, 90) for lon in range(60, -61, -1)]
-    boundary = mpath.Path(vertices)
-    ax.add_feature(cfeature.LAND)
-    ax.set_boundary(boundary, transform=ccrs.PlateCarree())
-    ax.scatter(Xo,Yo,c='r',s=300,zorder=10, edgecolor='k',transform=ccrs.PlateCarree(),marker='*')
-
-    ax.scatter(loc['lon'],loc['lat'],c='k',s=300,zorder=10, edgecolor='k',transform=ccrs.PlateCarree(),marker='o')
-
-    #for t in range(len(Xo)):
-    #    ax.text(Xo[t]-2, Yo[t]+0.2, '%s,%s'%(str(np.round(Xo[t],1)),str(np.round(Yo[t],1))),
-    #            transform=ccrs.Geodetic(),bbox=props_loc,fontsize=8,color='k',zorder=9)
-
-    ax.text(loc['lon']+15, loc['lat']+1, 'Oden:\n%s,%s'%(str(np.round(loc['lon'][0],1)),str(np.round(loc['lat'][0],1))),
-                transform=ccrs.Geodetic(),bbox=props_loc,fontsize=10,color='k',zorder=11)
-    ax.text(50, 80, '80'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
-    
-    ax.text(50, 85, '85'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
-
-    cp = gd.circle(lon=loc['lon'], lat=loc['lat'], radius=180000.)
-
-    ax.add_geometries([sgeom.Polygon(cp)], crs=ccrs.PlateCarree(), edgecolor='r', alpha=0.8,facecolor='none')
-
-    savename='PLOT_traj_ARTofMELT_forecast_%s_startingpoints_fromOden'%Date_forecast
-
-    #fig.savefig(savefigpath + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-
-
     ####### PLOT TRACKS, mark every 24h, tracks colored by black and STATISTIC about actual initial PRESSURE ###########
     
     # get the initial pressure at t=0 for all 6 levels
@@ -495,7 +444,6 @@ if __name__ == "__main__":
 
             ax[ip].text(75, 61, '60'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
 
-
     #legend
     labels = [str(l)+' days' for l in np.arange(-4,0,1).tolist()[::-1][0:len(Trajs_Plevs[50][0].iloc[::24, :].iloc[1:])]]
     markers = [plt.Line2D((0,1),(0,0), color=c, marker='o', linestyle='',markerfacecolor=c,ms=10,lw=3)
@@ -505,8 +453,8 @@ if __name__ == "__main__":
                    columnspacing=1.0,  labelspacing=0.23, handletextpad=0.1, handlelength=1,fancybox=True,
                    shadow=True,fontsize = 20)
 
-    fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
-    savename='PLOT_oneC_Pstart_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
+    fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
+    savename='PLOT_oneC_Pstart_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
     #plt.show()
@@ -543,21 +491,18 @@ if __name__ == "__main__":
         #title
         ax[ip].text(140, 60, str(p)+'hPa AGL',transform=ccrs.Geodetic(),bbox=props_loc,
                     fontsize=25,color='k',zorder=9)
-        
-        #plot_C_dif_24=truncate_colormap('binary',n=len(Trajs_Plevs[50][0].iloc[::24, :].iloc[1:]),minval=0.3,returncolors=True)
-
-
+      
         lc=plottracks(Trajs_Plevs,p,var='p',ax=ax[ip],ma='o',plotC=False,plotP=True,lw=1.5,
                       markDays=False,markEnd=True,fillm=False,hdif=24,ms=4)
         
         ax[ip].scatter(loc['lon'],loc['lat'],c='k',s=10,zorder=12, edgecolor='g',transform=ccrs.PlateCarree(),
                        marker='o')
+
         if ip == 0:
             ax[ip].text(75, 81, '80'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
 
             ax[ip].text(75, 61, '60'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
 
-        
     # make colorbar if return LC - colored trajectories with the third variable
     cbar_ax = fig.add_axes([0.89, 0.1, 0.015, 0.9-0.1])
     cbar=fig.colorbar(lc, cax=cbar_ax, extend='both')
@@ -566,20 +511,9 @@ if __name__ == "__main__":
     cbar.ax.invert_yaxis() #invert pressure axis
     cbar.solids.set(alpha=1)
     plt.setp(cbar_ax.get_yticklabels(), fontsize=25)
-
-
-    #legend
-    #labels = [str(l)+' days' for l in np.arange(-4,0,1).tolist()[::-1][0:len(Trajs_Plevs[50][0].iloc[::24, :].iloc[1:])]]
-    #markers = [plt.Line2D((0,1),(0,0), color=c, marker='o', linestyle='',markerfacecolor='w',ms=10,lw=3)
-    #           for c in plot_C_dif_24]
-
-
-    #leg= ax[3].legend(markers,labels, ncol=1, loc='center left', bbox_to_anchor=(1.03,1.1),
-    #               columnspacing=1.0,  labelspacing=0.23, handletextpad=0.1, handlelength=1,fancybox=True,
-     #              shadow=True,fontsize = 20)
     
-    fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
-    savename='PLOT_pressureC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
+    fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
+    savename='PLOT_pressureC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
     #plt.show()
@@ -635,8 +569,8 @@ if __name__ == "__main__":
     cbar.solids.set(alpha=1)
     plt.setp(cbar_ax.get_yticklabels(), fontsize=25)
 
-    fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
-    savename='PLOT_spechumC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
+    fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
+    savename='PLOT_spechumC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
     #plt.show()
@@ -680,11 +614,12 @@ if __name__ == "__main__":
         
         ax[ip].scatter(loc['lon'],loc['lat'],c='k',s=10,zorder=12, edgecolor='g',transform=ccrs.PlateCarree(),
                        marker='o')
+
         if ip == 0:
             ax[ip].text(75, 81, '80'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
 
             ax[ip].text(75, 61, '60'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
-        
+
     # make colorbar if return LC - colored trajectories with the third variable
     cbar_ax = fig.add_axes([0.89, 0.1, 0.015, 0.9-0.1])
     cbar=fig.colorbar(lc, cax=cbar_ax, extend='both')
@@ -693,13 +628,12 @@ if __name__ == "__main__":
     cbar.solids.set(alpha=1)
     plt.setp(cbar_ax.get_yticklabels(), fontsize=25)
 
-    fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
-    savename='PLOT_tempC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
+    fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
+    savename='PLOT_tempC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
     #plt.show()
-    
-    
+
     ####################### PLOT TRAJECTORIES BY THETA ###################
     
     # make a plot of trajectories
@@ -736,9 +670,9 @@ if __name__ == "__main__":
         #ax[ip].set_title('Trajectories initialized\nat %s hPa AGL, 5d'%str(p),fontsize=12)
         ax[ip].text(140, 60, str(p)+'hPa AGL',transform=ccrs.Geodetic(),bbox=props_loc,
                     fontsize=25,color='k',zorder=9)
-
+        
         lc=plottracks(Trajs_Plevs,p,var='TH',ax=ax[ip],ma='o',plotC=False,plotP=True,lw=1.5,colorbounds=np.arange(260,300.5,0.5),
-                    cmap=colMap_T,markDays=False,markEnd=True,fillm=False,hdif=24,ms=4)
+                     cmap=colMap_T,markDays=False,markEnd=True,fillm=False,hdif=24,ms=4)
         
         ax[ip].scatter(loc['lon'],loc['lat'],c='k',s=10,zorder=12, edgecolor='g',transform=ccrs.PlateCarree(),
                        marker='o')
@@ -747,7 +681,7 @@ if __name__ == "__main__":
             ax[ip].text(75, 81, '80'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
 
             ax[ip].text(75, 61, '60'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
-        
+
     # make colorbar if return LC - colored trajectories with the third variable
     cbar_ax = fig.add_axes([0.89, 0.1, 0.015, 0.9-0.1])
     cbar=fig.colorbar(lc, cax=cbar_ax, extend='both')
@@ -755,15 +689,15 @@ if __name__ == "__main__":
     cbar.ax.set_title(r'$\theta$ (K)', fontweight='bold',fontsize=20) #for specific humidity Q
     cbar.solids.set(alpha=1)
     plt.setp(cbar_ax.get_yticklabels(), fontsize=25)
-
-    fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
-    savename='PLOT_thetaC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
+    
+    fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
+    savename='PLOT_thetaC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
 
     #plt.show()
-    
+
     ####################### PLOT TRAJECTORIES BY THETA_v ###################
     
     # make a plot of trajectories
@@ -800,9 +734,9 @@ if __name__ == "__main__":
         #ax[ip].set_title('Trajectories initialized\nat %s hPa AGL, 5d'%str(p),fontsize=12)
         ax[ip].text(140, 60, str(p)+'hPa AGL',transform=ccrs.Geodetic(),bbox=props_loc,
                     fontsize=25,color='k',zorder=9)
-
+        
         lc=plottracks(Trajs_Plevs,p,var='THv',ax=ax[ip],ma='o',plotC=False,plotP=True,lw=1.5,colorbounds=np.arange(260,300.5,0.5),
-                    cmap=colMap_T,markDays=False,markEnd=True,fillm=False,hdif=24,ms=4)
+                     cmap=colMap_T,markDays=False,markEnd=True,fillm=False,hdif=24,ms=4)
         
         ax[ip].scatter(loc['lon'],loc['lat'],c='k',s=10,zorder=12, edgecolor='g',transform=ccrs.PlateCarree(),
                        marker='o')
@@ -811,7 +745,7 @@ if __name__ == "__main__":
             ax[ip].text(75, 81, '80'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
 
             ax[ip].text(75, 61, '60'+r'$^{\circ}$N',transform=ccrs.Geodetic(),bbox=props,fontsize=12,color='k',zorder=9)
-        
+
     # make colorbar if return LC - colored trajectories with the third variable
     cbar_ax = fig.add_axes([0.89, 0.1, 0.015, 0.9-0.1])
     cbar=fig.colorbar(lc, cax=cbar_ax, extend='both')
@@ -819,12 +753,11 @@ if __name__ == "__main__":
     cbar.ax.set_title(r'$\theta_v$ (K)', fontweight='bold',fontsize=20) #for specific humidity Q
     cbar.solids.set(alpha=1)
     plt.setp(cbar_ax.get_yticklabels(), fontsize=25)
-
-    fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
-    savename='PLOT_thetavC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
+    
+    fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
+    savename='PLOT_thetavC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
 
     #plt.show()
-
