@@ -157,8 +157,12 @@ echo ${traj_home}
 cd ${datadir_cdf}
 ln -s ${traj_home}/runOden_48h.sh runOden_48h.sh
 ln -s ${traj_home}/runOden_96h.sh runOden_96h.sh
+ln -s ${traj_home}/runLat70N_0h.sh runLat70N_0h.sh
+ln -s ${traj_home}/runLat70N_48h.sh runLat70N_48h.sh
 ln -s ${traj_home}/plot_Oden_48h_forecastTrajs_ARTofMELT.py plot_Oden_48h_forecastTrajs_ARTofMELT.py
 ln -s ${traj_home}/plot_Oden_96h_forecastTrajs_ARTofMELT.py plot_Oden_96h_forecastTrajs_ARTofMELT.py
+ln -s ${traj_home}/plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py
+ln -s ${traj_home}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py
 ln -s ${traj_home}/tracevars tracevars
 #ln -s ${traj_home}/Odenloc.txt Odenloc.txt
 
@@ -233,8 +237,12 @@ echo $lat
 
 ${datadir_cdf}/runOden_48h.sh $BT $lon $lat
 ${datadir_cdf}/runOden_96h.sh $BT $lon $lat
+${datadir_cdf}/runLat70N_0h.sh $BT $lon $lat
+${datadir_cdf}/runLat70N_48h.sh $BT $lon $lat
 python3 ${datadir_cdf}/plot_Oden_48h_forecastTrajs_ARTofMELT.py ${MSJ_YEAR} ${MSJ_MONTH} ${MSJ_DAY}
 python3 ${datadir_cdf}/plot_Oden_96h_forecastTrajs_ARTofMELT.py ${MSJ_YEAR} ${MSJ_MONTH} ${MSJ_DAY}
+python3 ${datadir_cdf}/plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py ${MSJ_YEAR} ${MSJ_MONTH} ${MSJ_DAY}
+python3 ${datadir_cdf}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py ${MSJ_YEAR} ${MSJ_MONTH} ${MSJ_DAY}
 
 if [ ! -e plots ]; then mkdir -p plots; fi
 mv PLOT* plots
