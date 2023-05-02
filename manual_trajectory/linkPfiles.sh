@@ -7,3 +7,4 @@ echo ${Pfile_dir}
 
 ln -s ${Pfile_dir}/P* .
 ln -s ${Pfile_dir}/ml_cst .
+ln -s ${Pfile_dir}/Odenloc.txt .
