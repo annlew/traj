@@ -20,8 +20,8 @@ module load rclone
 MSJ_BASETIME="00"
 MSJ_STEP="144"
 MSJ_YEAR="2023"
-MSJ_MONTH="04"
-MSJ_DAY="25"
+MSJ_MONTH="05"
+MSJ_DAY="02"
 MSJ_EXPVER="0001"
 MSJ_EVENT="fc00h144"
 
@@ -31,7 +31,7 @@ BT=${MSJ_YEAR}${MSJ_MONTH}${MSJ_DAY}_${MSJ_BASETIME}
 echo $BT
 
 
-traj_home=/home/sr9/lagranto_oden/artofmelt/TrajectoryScripts/run_trajectories
+traj_home=/home/sr9/artofmelt/TrajectoryScripts/ecaccess_trajectories
 echo $traj_home
 
 # forecast lead times
@@ -168,6 +168,7 @@ cd ${datadir_cdf}
 # Fetch Oden location
 if [ ! -e Odenloc.txt ]; then
 
+echo 'Fetch new Odenloc.txt' 
 ftp bolftp.ecmwf.int<< EOF
 cd artofmelt
 get Odenloc.txt
