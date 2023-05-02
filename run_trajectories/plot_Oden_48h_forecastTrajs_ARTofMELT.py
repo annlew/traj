@@ -203,10 +203,7 @@ def plottracks(TrajDF,p,cmap=plt.get_cmap('Spectral_r'),var='p',Indx_ini=None,CO
         #go through all trajs initialized from same pressure level, different start points /times
         lons=Traj_sel[i]['lon'].values
         lats=Traj_sel[i]['lat'].values
-        if var == 'T':
-            p=Traj_sel[i][var].values# - 273.15 #from Kelvin to Celcius
-        else:
-            p=Traj_sel[i][var].values
+        p=Traj_sel[i][var].values
         
         if plotC:
             #color tracks in one given color if COL given, else random colors, one color per track
