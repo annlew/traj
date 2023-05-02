@@ -32,6 +32,8 @@ int_lat0=$( printf "%.0f" $lat0 )
 echo "how many hours into the forecast shall the trajectories start? (give hours, eg 0 or 24; max 144 (equals 6d))"
 read hours
 
+echo "Forward trajectories are computed from a circle with origo at ($lon,$lat), started at +$hours into the forecast"
+
 hours0=${hours}
 forecastdate=$1
 startdate=`newtime ${forecastdate} ${hours0}`
@@ -45,8 +47,6 @@ echo ${enddate}
 # -------------------------------------------------------
 # Trajectory calculations
 # -------------------------------------------------------
-
-echo "Forward trajectories are computed from a circle with origo at ($lon,$lat), started at +$hours into the forecast"
 
 
 #save chosen startlocation in a file (append if many times chosen)
