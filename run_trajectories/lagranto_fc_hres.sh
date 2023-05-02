@@ -13,7 +13,7 @@ module load rclone
 
 
 # Some forecast date for testing
-BT="20230428_00"
+#BT="20230502_00"
 
 # BT from ecaccess
 
@@ -21,7 +21,7 @@ MSJ_BASETIME="00"
 MSJ_STEP="144"
 MSJ_YEAR="2023"
 MSJ_MONTH="04"
-MSJ_DAY="26"
+MSJ_DAY="25"
 MSJ_EXPVER="0001"
 MSJ_EVENT="fc00h144"
 
@@ -63,7 +63,7 @@ res=1.0
 # this determines the starting points of the trajectories (e.g. in a rect. box with equidistant grid spacing of 100 km and at pressure levels between 1000 and 700 hpa)
 # MODIFY THIS
 # not needed
-startfile_command="box.eqd(-130,80,15,60,100) @ profile(1000,700,7) @ hPa"
+#startfile_command="box.eqd(-130,80,15,60,100) @ profile(1000,700,7) @ hPa"
 
 # selection criterion
 # filter the computed trajectories by criteria
@@ -149,10 +149,6 @@ datadir_cdf="${basedir}/${BT}/cdf"
 if [ ! -e $datadir_cdf ]; then mkdir -p $datadir_cdf; fi
 
 ## MOVE SONJA'S stuff
-# cp runOden_48h.sh ${datadir_cdf}
-# cp tracevars  ${datadir_cdf}
-# cp plot_Oden_48h_forecastTrajs_ARTofMELT.py ${datadir_cdf}
-# cp Odenloc.txt  ${datadir_cdf}
 
 echo ${traj_home}
 cp ${traj_home}/runOden_48h.sh ${datadir_cdf}
@@ -166,25 +162,21 @@ cp ${traj_home}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py ${datadir_cdf}
 cp ${traj_home}/tracevars ${datadir_cdf} 
 
 cd ${datadir_cdf}
-#ln -s ${traj_home}/runOden_48h.sh runOden_48h.sh
-#ln -s ${traj_home}/runOden_96h.sh runOden_96h.sh
-#ln -s ${traj_home}/runLat70N_0h.sh runLat70N_0h.sh
-#ln -s ${traj_home}/runLat70N_48h.sh runLat70N_48h.sh
-#ln -s ${traj_home}/plot_Oden_48h_forecastTrajs_ARTofMELT.py plot_Oden_48h_forecastTrajs_ARTofMELT.py
-#ln -s ${traj_home}/plot_Oden_96h_forecastTrajs_ARTofMELT.py plot_Oden_96h_forecastTrajs_ARTofMELT.py
-#ln -s ${traj_home}/plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py
-#ln -s ${traj_home}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py
-#ln -s ${traj_home}/tracevars tracevars
-##ln -s ${traj_home}/Odenloc.txt Odenloc.txt
 
 
 
 # Fetch Oden location
+if [ ! -e Odenloc.txt ]; then
+
 ftp bolftp.ecmwf.int<< EOF
 cd artofmelt
 get Odenloc.txt
 quit
 EOF
+
+else
+  echo 'File Odenloc.txt already exists' 
+fi
 
 
 
@@ -223,22 +215,6 @@ rm ${datadir_cdf}/hres_ml* ${datadir_cdf}/hres_sfc*
 
 # prepare trajectory computation
 
-# outdirs
-#not needed
-#tradir="tra_all"
-#wcbdir="wcb_all"
-
-
-
-#if [ ! -e ${datadir_cdf}/${tradir} ];then  mkdir -p ${datadir_cdf}/${tradir};  fi
-#if [ ! -e ${datadir_cdf}/${wcbdir} ];then  mkdir -p ${datadir_cdf}/${wcbdir};  fi
-
-
-#while IFS=' ' read -r clon clat
-#do
-#    lon=$clon
-#    lat=$clat
-#done <Odenloc.txt
 
 IFS=' ' read clon clat < <(sed 2p Odenloc.txt)
 lon=$clon
