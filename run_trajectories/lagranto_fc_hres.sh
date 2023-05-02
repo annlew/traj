@@ -15,22 +15,23 @@ module load rclone
 # Some forecast date for testing
 BT="20230428_00"
 
- BT from ecaccess
+# BT from ecaccess
 
 MSJ_BASETIME="00"
 MSJ_STEP="144"
 MSJ_YEAR="2023"
 MSJ_MONTH="04"
-MSJ_DAY="28"
+MSJ_DAY="26"
 MSJ_EXPVER="0001"
 MSJ_EVENT="fc00h144"
 
- Fetch ECaccess event variables for foreacts date
+# Fetch ECaccess event variables for foreacts date
 BT=${MSJ_YEAR}${MSJ_MONTH}${MSJ_DAY}_${MSJ_BASETIME}
 
 echo $BT
 
-traj_home=$PWD
+
+traj_home=/home/sr9/lagranto_oden/artofmelt/TrajectoryScripts/run_trajectories
 echo $traj_home
 
 # forecast lead times
@@ -154,17 +155,27 @@ if [ ! -e $datadir_cdf ]; then mkdir -p $datadir_cdf; fi
 # cp Odenloc.txt  ${datadir_cdf}
 
 echo ${traj_home}
+cp ${traj_home}/runOden_48h.sh ${datadir_cdf}
+cp ${traj_home}/runOden_96h.sh ${datadir_cdf}
+cp ${traj_home}/runLat70N_0h.sh ${datadir_cdf}
+cp ${traj_home}/runLat70N_48h.sh ${datadir_cdf}
+cp ${traj_home}/plot_Oden_48h_forecastTrajs_ARTofMELT.py ${datadir_cdf}
+cp ${traj_home}/plot_Oden_96h_forecastTrajs_ARTofMELT.py ${datadir_cdf}
+cp ${traj_home}/plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py ${datadir_cdf}
+cp ${traj_home}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py ${datadir_cdf}
+cp ${traj_home}/tracevars ${datadir_cdf} 
+
 cd ${datadir_cdf}
-ln -s ${traj_home}/runOden_48h.sh runOden_48h.sh
-ln -s ${traj_home}/runOden_96h.sh runOden_96h.sh
-ln -s ${traj_home}/runLat70N_0h.sh runLat70N_0h.sh
-ln -s ${traj_home}/runLat70N_48h.sh runLat70N_48h.sh
-ln -s ${traj_home}/plot_Oden_48h_forecastTrajs_ARTofMELT.py plot_Oden_48h_forecastTrajs_ARTofMELT.py
-ln -s ${traj_home}/plot_Oden_96h_forecastTrajs_ARTofMELT.py plot_Oden_96h_forecastTrajs_ARTofMELT.py
-ln -s ${traj_home}/plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py
-ln -s ${traj_home}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py
-ln -s ${traj_home}/tracevars tracevars
-#ln -s ${traj_home}/Odenloc.txt Odenloc.txt
+#ln -s ${traj_home}/runOden_48h.sh runOden_48h.sh
+#ln -s ${traj_home}/runOden_96h.sh runOden_96h.sh
+#ln -s ${traj_home}/runLat70N_0h.sh runLat70N_0h.sh
+#ln -s ${traj_home}/runLat70N_48h.sh runLat70N_48h.sh
+#ln -s ${traj_home}/plot_Oden_48h_forecastTrajs_ARTofMELT.py plot_Oden_48h_forecastTrajs_ARTofMELT.py
+#ln -s ${traj_home}/plot_Oden_96h_forecastTrajs_ARTofMELT.py plot_Oden_96h_forecastTrajs_ARTofMELT.py
+#ln -s ${traj_home}/plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py plot_70Nlatband_0h_forecastTrajs_ARTofMELT.py
+#ln -s ${traj_home}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py
+#ln -s ${traj_home}/tracevars tracevars
+##ln -s ${traj_home}/Odenloc.txt Odenloc.txt
 
 
 
@@ -246,8 +257,9 @@ python3 ${datadir_cdf}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py ${MSJ_YEAR
 
 if [ ! -e plots ]; then mkdir -p plots; fi
 mv PLOT* plots
+mv traj* plots
 
-rclone copy ${datadir_cdf}/plots box:artofmelt/${MSJ_YEAR}${MSJ_MONTH}${MSJ_DAY}/trajectory
+rclone copy ${datadir_cdf}/plots box:artofmelt/${BT}/trajectory
 
 
 echo '###############################################################' 
