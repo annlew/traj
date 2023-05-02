@@ -204,7 +204,7 @@ def plottracks(TrajDF,p,cmap=plt.get_cmap('Spectral_r'),var='p',Indx_ini=None,CO
         lons=Traj_sel[i]['lon'].values
         lats=Traj_sel[i]['lat'].values
         if var == 'T':
-            p=Traj_sel[i][var].values - 273.15 #from Kelvin to Celcius
+            p=Traj_sel[i][var].values# - 273.15 #from Kelvin to Celcius
         else:
             p=Traj_sel[i][var].values
         

@@ -204,7 +204,7 @@ def plottracks(TrajDF,p,cmap=plt.get_cmap('Spectral_r'),var='p',Indx_ini=None,CO
         lons=Traj_sel[i]['lon'].values
         lats=Traj_sel[i]['lat'].values
         if var == 'T':
-            p=Traj_sel[i][var].values - 273.15 #from Kelvin to Celcius
+            p=Traj_sel[i][var].values# - 273.15 #from Kelvin to Celcius
         else:
             p=Traj_sel[i][var].values
         
@@ -431,7 +431,8 @@ if __name__ == "__main__":
     savename='PLOT_traj_ARTofMELT_forecast_%s_startingpoints_fromOden'%Date_forecast
 
     #fig.savefig(savefigpath + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
 
 
     ####### PLOT TRACKS, mark every 24h, tracks colored by black and STATISTIC about actual initial PRESSURE ###########
@@ -508,7 +509,8 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_oneC_Pstart_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
     #plt.show()
 
     ############ PLOT TRAJECTORIES BY PRESSURE #################
@@ -581,7 +583,8 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_pressureC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
     #plt.show()
     
     ########### PLOT TRAJECTORIES BY SPECIFIC HUMIDITY ##############
@@ -638,7 +641,8 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_spechumC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
     #plt.show()
 
     ######### PLOT TRAJECTORIES BY TEMPERATURE ###################
@@ -696,7 +700,8 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_tempC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
     #plt.show()
     
     
@@ -760,7 +765,8 @@ if __name__ == "__main__":
     savename='PLOT_thetaC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
 
     #plt.show()
     
@@ -824,7 +830,8 @@ if __name__ == "__main__":
     savename='PLOT_thetavC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
 
     #plt.show()
 
