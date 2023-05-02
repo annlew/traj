@@ -172,8 +172,15 @@ e/n/d/r/c/s/q> q
 ## Running in interactive mode
 
 
+## Running ECaccess job
 
+Set up internal ssh
+```
+$> ssh-key-setup
+```
+Submit ECaccess job
 
-
-
+```
+ecaccess-job-submit -eventIds fc00h240 -mp "nothing to be done" -retryCount 0 -retryFrequency 900 lagranto_fc_hres.sh
+```
 
