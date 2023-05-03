@@ -32,10 +32,12 @@ rm start*
 #Copy to box
 rclone copy --ignore-existing ${out_dir} box:artofmelt/${1}${2}${3}_00/trajectory_extras
 rclone copyto EFIloc.txt box:artofmelt/Extra_trajectory_${USER}.txt 
+echo 'Files copied to box'
 
 #remove linked files
 rm P*
 rm Odenloc.txt
 rm ml_cst
 
+echo 'Done'
 

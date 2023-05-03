@@ -235,6 +235,7 @@ python3 ${datadir_cdf}/plot_70Nlatband_48h_forecastTrajs_ARTofMELT.py ${MSJ_YEAR
 if [ ! -e plots ]; then mkdir -p plots; fi
 mv PLOT* plots
 mv traj* plots
+cp Odenlox.txt plots
 
 rclone copy ${datadir_cdf}/plots box:artofmelt/${BT}/trajectory
 
