@@ -339,6 +339,9 @@ if __name__ == "__main__":
     
     #panel numbering
     panels = list(string.ascii_lowercase)
+
+    #define dpi of all figures
+    set_dpi=72
     
     # global settings
     plt.rc('figure', titlesize=20)
@@ -429,7 +432,7 @@ if __name__ == "__main__":
 
     #fig.savefig(savefigpath + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=set_dpi)
 
 
     ####### PLOT TRACKS, mark every 24h, tracks colored by black and STATISTIC about actual initial PRESSURE ###########
@@ -507,7 +510,7 @@ if __name__ == "__main__":
     savename='PLOT_oneC_Pstart_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=set_dpi)
     #plt.show()
 
     ############ PLOT TRAJECTORIES BY PRESSURE #################
@@ -581,7 +584,7 @@ if __name__ == "__main__":
     savename='PLOT_pressureC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=set_dpi)
     #plt.show()
     
     ########### PLOT TRAJECTORIES BY SPECIFIC HUMIDITY ##############
@@ -639,7 +642,7 @@ if __name__ == "__main__":
     savename='PLOT_spechumC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=set_dpi)
     #plt.show()
 
     ######### PLOT TRAJECTORIES BY TEMPERATURE ###################
@@ -698,7 +701,7 @@ if __name__ == "__main__":
     savename='PLOT_tempC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=set_dpi)
     #plt.show()
     
     
@@ -763,7 +766,7 @@ if __name__ == "__main__":
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=set_dpi)
 
     #plt.show()
     
@@ -818,8 +821,8 @@ if __name__ == "__main__":
     # make colorbar if return LC - colored trajectories with the third variable
     cbar_ax = fig.add_axes([0.89, 0.1, 0.015, 0.9-0.1])
     cbar=fig.colorbar(lc, cax=cbar_ax, extend='both')
-    cbar.set_ticks(np.arange(260,305,5)) # for specific humidity Q
-    cbar.ax.set_title(r'$\theta_v$ (K)', fontweight='bold',fontsize=20) #for specific humidity Q
+    cbar.set_ticks(np.arange(260,305,5)) 
+    cbar.ax.set_title(r'$\theta_v$ (K)', fontweight='bold',fontsize=20)
     cbar.solids.set(alpha=1)
     plt.setp(cbar_ax.get_yticklabels(), fontsize=25)
 
@@ -828,7 +831,7 @@ if __name__ == "__main__":
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=set_dpi)
 
     #plt.show()
 
