@@ -17,13 +17,13 @@ module load rclone
 
 # BT from ecaccess
 
-MSJ_BASETIME="00"
-MSJ_STEP="144"
-MSJ_YEAR="2023"
-MSJ_MONTH="05"
-MSJ_DAY="02"
-MSJ_EXPVER="0001"
-MSJ_EVENT="fc00h144"
+#MSJ_BASETIME="00"
+#MSJ_STEP="144"
+#MSJ_YEAR="2023"
+#MSJ_MONTH="05"
+#MSJ_DAY="02"
+#MSJ_EXPVER="0001"
+#MSJ_EVENT="fc00h144"
 
 # Fetch ECaccess event variables for foreacts date
 BT=${MSJ_YEAR}${MSJ_MONTH}${MSJ_DAY}_${MSJ_BASETIME}
@@ -85,50 +85,50 @@ datadir_grb=${basedir}/${BT}/grb
 if [ ! -d ${datadir_grb} ] ; then mkdir -p ${datadir_grb} ; fi
 
 
-#### Data retrieval
-## model level
-#mars <<EOF
-#RETRIEVE,
-#date=${BT:0:8},
-#time=${BT:9:2},
-#class=od,
-#expver=1,
-#type=fc,
-#stream=oper,
-#param=130/131/132/133/135,
-#levtype=ml,
-#levelist=46/to/137,
-#area=$area,
-#grid=$res/$res,
-#step=$steps_mars,
-#target="$datadir_grb/hres_ml_${BT:0:8}${BT:9:2}_[step]"
-#
-#EOF
-#
-## surface level
-#mars <<EOF
-#RETRIEVE,
-#date=${BT:0:8},
-#time=${BT:9:2},
-#class=od,
-#expver=1,
-#type=fc,
-#stream=oper,
-#param=134,
-#levtype=sfc,
-#area=$area,
-#grid=$res/$res,
-#step=$steps_mars,
-#target="$datadir_grb/hres_sfc_${BT:0:8}${BT:9:2}_[step]"
-#
-#EOF
-#
-## Rename data (including leading zeres)
-#for step in ${steps[@]};
-#do	step_long=$(printf "%03d" ${step})
-#	mv $datadir_grb/hres_ml_${BT:0:8}${BT:9:2}_${step} $datadir_grb/hres_ml_${BT:0:8}${BT:9:2}_${step_long}
-#	mv $datadir_grb/hres_sfc_${BT:0:8}${BT:9:2}_${step} $datadir_grb/hres_sfc_${BT:0:8}${BT:9:2}_${step_long}
-#done
+### Data retrieval
+# model level
+mars <<EOF
+RETRIEVE,
+date=${BT:0:8},
+time=${BT:9:2},
+class=od,
+expver=1,
+type=fc,
+stream=oper,
+param=130/131/132/133/135,
+levtype=ml,
+levelist=46/to/137,
+area=$area,
+grid=$res/$res,
+step=$steps_mars,
+target="$datadir_grb/hres_ml_${BT:0:8}${BT:9:2}_[step]"
+
+EOF
+
+# surface level
+mars <<EOF
+RETRIEVE,
+date=${BT:0:8},
+time=${BT:9:2},
+class=od,
+expver=1,
+type=fc,
+stream=oper,
+param=134,
+levtype=sfc,
+area=$area,
+grid=$res/$res,
+step=$steps_mars,
+target="$datadir_grb/hres_sfc_${BT:0:8}${BT:9:2}_[step]"
+
+EOF
+
+# Rename data (including leading zeres)
+for step in ${steps[@]};
+do	step_long=$(printf "%03d" ${step})
+	mv $datadir_grb/hres_ml_${BT:0:8}${BT:9:2}_${step} $datadir_grb/hres_ml_${BT:0:8}${BT:9:2}_${step_long}
+	mv $datadir_grb/hres_sfc_${BT:0:8}${BT:9:2}_${step} $datadir_grb/hres_sfc_${BT:0:8}${BT:9:2}_${step_long}
+done
 
 
 ### Data preprocessing
