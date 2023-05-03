@@ -1,7 +1,7 @@
 # TrajectoryScripts
 This repository includes trajectory scripts for computing and plotting forecast trajectories 
 
-The atos branch is prepared for running on Atos hpc/ecs and requires access to the lagranto installation of Moritz Pickl and Oden location from Linus Manusson's ftp server. Upload of data is done to box.
+The atos branch is prepared for running on Atos hpc/ecs and requires access to the lagranto installation of Moritz Pickl. ECaccess job submission also requires access to Linus Manusson's ftp server to fetch Oden location. Upload of data is done to box.
 
 ## Preparations
 
@@ -25,7 +25,7 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"/usr/local/apps/netcdf4/4.7.4/GNU/8.4/lib"
 export LD_LIBRARY_PATH
 ```
 
-### Fetch Oden location
+### Fetch Oden location (only for ECaccess job)
 
 Requires access to Linus' ftp server. Add the following in ~/.netrc
 
