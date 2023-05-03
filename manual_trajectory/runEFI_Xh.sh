@@ -13,16 +13,18 @@
 # -------------------------------------------------------
 
 # ask the user for lon and lat position
-echo "give longitude (in decimal degrees, separated by dot)"
+echo "give longitude (in decimal degrees, separated by dot: e.g. 5.2)"
 read lon
 lon0=${lon}
-echo "give latitude (in decimal degrees, separated by dot)"
+echo "give latitude (in decimal degrees, separated by dot: e.g. 87.4)"
 read lat
 lat0=${lat}
 
+
 #save the lon,lat as integers for filenames
-int_lon0=$( printf "%.0f" $lon0 )
-int_lat0=$( printf "%.0f" $lat0 )
+int_lon0=$( LC_NUMERIC="en_US.UTF-8" printf "%.0f" $lon0 )
+int_lat0=$( LC_NUMERIC="en_US.UTF-8" printf "%.0f" $lat0 )
+
 
 # -------------------------------------------------------
 # time references
