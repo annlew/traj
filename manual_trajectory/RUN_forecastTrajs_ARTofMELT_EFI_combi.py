@@ -67,14 +67,14 @@ if __name__ == "__main__":
     #### if trajectories are already computed, comment these following functions! ###
     
     # LINK P files to the run directory for trajectory computations
-    linkPfiles()
+    #linkPfiles()
     print('P files linked to the run directory for the %s forecast'%Date_forecast)    
     # 4d forward from a manually given location, initialized from 6 vertical levels 50 - 200 hPa AGL ,dP = 50hPa, with a circle of 180km radius, start. points eq 50km
     calcEFI('runEFI_Xh.sh',Date_forecast)
     print('calculation done for 4-day forward trajectories initialized at given location')
 
     # remove the linked P files from the current run directory
-    remlinkPfiles()
+    #remlinkPfiles()
 
     ########################### PLOT trajectories ####################
     
