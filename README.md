@@ -27,13 +27,13 @@ export LD_LIBRARY_PATH
 
 ### Fetch Oden location
 
-Requires access to Linus ftp server. Add the following in ~/.netrc
+Requires access to Linus' ftp server. Add the following in ~/.netrc
 
 ```
 machine bolftp.ecmwf.int login lmagnusson password XXXXXX
 ```
 
-### Set up box
+### Set up rclone box
 
 IN TERMINAL ON ATOS
 ```
@@ -171,6 +171,11 @@ e/n/d/r/c/s/q> q
 
 ## Running in interactive mode
 
+```
+module load python3
+module load rclone
+./run_trajectory.sh year month date
+```
 
 ## Running ECaccess job
 
