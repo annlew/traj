@@ -429,7 +429,7 @@ if __name__ == "__main__":
 
     #fig.savefig(savefigpath + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
 
 
     ####### PLOT TRACKS, mark every 24h, tracks colored by black and STATISTIC about actual initial PRESSURE ###########
@@ -507,7 +507,7 @@ if __name__ == "__main__":
     savename='PLOT_oneC_Pstart_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
 
     ############ PLOT TRAJECTORIES BY PRESSURE #################
@@ -581,7 +581,7 @@ if __name__ == "__main__":
     savename='PLOT_pressureC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
     
     ########### PLOT TRAJECTORIES BY SPECIFIC HUMIDITY ##############
@@ -639,7 +639,7 @@ if __name__ == "__main__":
     savename='PLOT_spechumC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
 
     ######### PLOT TRAJECTORIES BY TEMPERATURE ###################
@@ -698,7 +698,7 @@ if __name__ == "__main__":
     savename='PLOT_tempC_traj_ARTofMELT_forecast_%s_fromOden_48h_2dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
     
     
@@ -763,7 +763,7 @@ if __name__ == "__main__":
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
 
     #plt.show()
     
@@ -828,7 +828,7 @@ if __name__ == "__main__":
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
     #fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=50)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
 
     #plt.show()
 

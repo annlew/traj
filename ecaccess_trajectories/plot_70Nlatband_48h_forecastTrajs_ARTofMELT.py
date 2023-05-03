@@ -477,7 +477,7 @@ if __name__ == "__main__":
     savename='PLOT_oneC_Pstart_traj_ARTofMELT_forecast_%s_70Nlatband_48h_4dfw'%Date_forecast
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #fig.savefig(savefigs + savename + '.png',bbox_inches = 'tight',dpi=350)
     #plt.show()
 
@@ -552,7 +552,7 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_pressureC_traj_ARTofMELT_forecast_%s_70Nlatband_48h_4dfw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
 
 
@@ -627,7 +627,7 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_spechumC_traj_ARTofMELT_forecast_%s_70Nlatband_48h_4dfw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
 
     ######### PLOT TRAJECTORIES BY TEMPERATURE ###################
@@ -701,7 +701,7 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_tempC_traj_ARTofMELT_forecast_%s_70Nlatband_48h_4dfw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
     
     
@@ -775,7 +775,7 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_thetaC_traj_ARTofMELT_forecast_%s_70Nlatband_48h_4dfw'%Date_forecast
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
     
     ####################### PLOT TRAJECTORIES BY THETA_v ###################
@@ -848,5 +848,5 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +48h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_thetavC_traj_ARTofMELT_forecast_%s_70Nlatband_48h_4dfw'%Date_forecast
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()

@@ -453,7 +453,7 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_oneC_Pstart_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
 
     ############ PLOT TRAJECTORIES BY PRESSURE #################
@@ -512,7 +512,7 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_pressureC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
     
     ########### PLOT TRAJECTORIES BY SPECIFIC HUMIDITY ##############
@@ -569,7 +569,7 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_spechumC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
 
     ######### PLOT TRAJECTORIES BY TEMPERATURE ###################
@@ -628,7 +628,7 @@ if __name__ == "__main__":
     fig.suptitle('Forecast trajectories +96h from %s'%Date.strftime('%d %B, %Y'),fontsize=20)
     savename='PLOT_tempC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
     #fig.savefig(savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
     #plt.show()
 
     ####################### PLOT TRAJECTORIES BY THETA ###################
@@ -691,7 +691,7 @@ if __name__ == "__main__":
     savename='PLOT_thetaC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
 
     #plt.show()
 
@@ -755,6 +755,6 @@ if __name__ == "__main__":
     savename='PLOT_thetavC_traj_ARTofMELT_forecast_%s_fromOden_96h_4dbw'%Date_forecast
 
     #fig.savefig(savefigs + savename + '.pdf',bbox_inches = 'tight',format='pdf',dpi=150)
-    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=150)
+    fig.savefig(savename + '.png',bbox_inches = 'tight',dpi=72)
 
     #plt.show()
